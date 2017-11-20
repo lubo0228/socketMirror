@@ -8,7 +8,7 @@ import java.nio.channels.SocketChannel;
 /**
  * Created by mayn on 2017/11/20.
  */
-public class Client {
+public class NIOClient {
 
     private static final String str = "你好啊！我是客户端。";
 

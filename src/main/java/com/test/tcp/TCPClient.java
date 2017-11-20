@@ -1,4 +1,4 @@
-package com.test.jdk_tcp;
+package com.test.tcp;
 
 import java.io.*;
 import java.net.Socket;
@@ -6,7 +6,7 @@ import java.net.Socket;
 /**
  * Created by mayn on 2017/11/14.
  */
-public class Client {
+public class TCPClient {
 
     private static int PORT = 10086;
     private static String IP = "127.0.0.1";

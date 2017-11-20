@@ -1,4 +1,4 @@
-package com.test.jdk_udp;
+package com.test.udp;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

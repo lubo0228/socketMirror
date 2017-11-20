@@ -1,4 +1,4 @@
-package com.test.jdk_tcp;
+package com.test.tcp;
 
 import java.io.*;
 import java.net.Socket;
@@ -13,6 +13,8 @@ public class ServerHandler implements Runnable {
     public ServerHandler(Socket socket) {
         this.socket = socket;
     }
+
+
 
     @Override
     public void run() {

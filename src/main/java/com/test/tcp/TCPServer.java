@@ -1,4 +1,4 @@
-package com.test.jdk_tcp;
+package com.test.tcp;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -7,7 +7,7 @@ import java.net.Socket;
 /**
  * Created by mayn on 2017/11/14.
  */
-public class Server {
+public class TCPServer {
 
     private static int PORT = 10086;
 

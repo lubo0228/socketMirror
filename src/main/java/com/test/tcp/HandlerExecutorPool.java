@@ -1,4 +1,4 @@
-package com.test.jdk_tcp;
+package com.test.tcp;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;

@@ -11,13 +11,23 @@ import java.util.Iterator;
 
 /**
  * Created by mayn on 2017/11/20.
+ *
+ * NIO的通信步骤 ①创建ServerSocketChannel，为其配置非阻塞模式。
+ ②绑定监听，配置TCP参数，录入backlog大小等。
+ ③创建一个独立的IO线程，用于轮询多路复用器Selector。
+ ④创建Selector，将之前创建的ServerSocketChannel注册到Selector上，并设置监听标识位SelectionKey.OP_ACCEPT。
+ ⑤启动IO线程，在循环体中执行Selector.select()方法，轮询就绪的通道。
+ ⑥当轮询到处于就绪状态的通道时，需要进行操作位判断，如果是ACCEPT状态，说明是新的客户端接入，则调用accept方法接收新的客户端。
+ ⑦设置新接入客户端的一些参数，如非阻塞，并将其继续注册到Selector上，设置监听标识位等。
+ ⑧如果轮询的通道标识位是READ，则进行读取，构造Buffer对象等。
+ ⑨更细节的问题还有数据没发送完成继续发送的问题......
  */
-public class Server implements Runnable {
+public class NIOServer implements Runnable {
 
     private Selector selector;
     private ByteBuffer buffer = ByteBuffer.allocate(1024);
 
-    public Server(int port){
+    public NIOServer(int port){
         try {
             //1 打开多复用器
             selector = Selector.open();
@@ -99,6 +109,6 @@ public class Server implements Runnable {
     }
 
     public static void main(String[] args) {
-        new Thread(new Server(8379)).start();
+        new Thread(new NIOServer(8379)).start();
     }
 }
