@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="socketMirror:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="com.socket.war">
-      <element id="artifact" artifact-name="socketMirror:war exploded" />
-    </root>
-  </artifact>
-</component>
