@@ -13,20 +13,25 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  * Created by mayn on 2017/11/20.
  */
 public class NettyClient {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
-        bootstrap.group(workerGroup)
-                .channel(NioSocketChannel.class)
-                .handler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel socketChannel) throws Exception {
-                        socketChannel.pipeline().addLast(new ClientHandler());
-                    }
-                });
-        ChannelFuture future = bootstrap.connect("127.0.0.1", 10010).sync();
-        future.channel().writeAndFlush(Unpooled.copiedBuffer("我是客户端的信息".getBytes()));
-        future.channel().closeFuture().sync();
-        workerGroup.shutdownGracefully();
+        try{
+            bootstrap.group(workerGroup)
+                    .channel(NioSocketChannel.class)
+                    .handler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        protected void initChannel(SocketChannel socketChannel) {
+                            socketChannel.pipeline().addLast(new ClientHandler());
+                        }
+                    });
+            ChannelFuture future = bootstrap.connect("127.0.0.1", 10010).sync();
+            future.channel().writeAndFlush(Unpooled.copiedBuffer("我是客户端的信息".getBytes()));
+            future.channel().closeFuture().sync();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            workerGroup.shutdownGracefully();
+        }
     }
 }

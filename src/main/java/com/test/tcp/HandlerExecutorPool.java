@@ -12,7 +12,7 @@ public class HandlerExecutorPool {
     private ExecutorService executor;
 
     public HandlerExecutorPool(int maxSize, int queueSize) {
-        this.executor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(), maxSize, 120L, TimeUnit.SECONDS, new ArrayBlockingQueue<>(queueSize));
+        this.executor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(), maxSize, 120L, TimeUnit.SECONDS, new ArrayBlockingQueue(queueSize));
     }
 
     public void execute(Runnable task) {

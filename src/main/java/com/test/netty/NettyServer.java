@@ -34,7 +34,7 @@ public class NettyServer {
                     .channel(NioServerSocketChannel.class) //指定NIO的模式
                     .childHandler(new ChannelInitializer<SocketChannel>() { //配置具体的数据处理方式
                         @Override
-                        protected void initChannel(SocketChannel socketChannel) throws Exception {
+                        protected void initChannel(SocketChannel socketChannel) {
                             socketChannel.pipeline().addLast(new ServerHandler());
                         }
                     })
@@ -50,7 +50,7 @@ public class NettyServer {
                      */
                     .option(ChannelOption.SO_BACKLOG, 128) //设置TCP缓冲区
 //                    .option(ChannelOption.SO_SNDBUF, 32 * 1024) //设置发送数据缓冲大小
-                    .option(ChannelOption.SO_RCVBUF, 32 * 1024) //设置接受数据缓冲大小
+                    .childOption(ChannelOption.SO_RCVBUF, 32 * 1024) //设置接受数据缓冲大小
                     .childOption(ChannelOption.SO_KEEPALIVE, true); //保持连接
             ChannelFuture future = bootstrap.bind(port).sync();
             future.channel().closeFuture().sync();
