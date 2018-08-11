@@ -1,22 +1,36 @@
 package com.test.netty;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 
 /**
  * Created by mayn on 2017/11/20.
  */
 public class ServerHandler extends SimpleChannelInboundHandler<String> {
 
-
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, String msg) throws Exception {
         System.out.println("Server: " + msg);
     }
 
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (evt instanceof IdleStateEvent) {
+            IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
+            if (idleStateEvent.state() == IdleState.ALL_IDLE) {
+                ChannelFuture channelFuture = ctx.channel().writeAndFlush("time out");
+                channelFuture.addListener((ChannelFutureListener) channelFuture1 -> channelFuture1.channel().close());
+            }
+        } else {
+            super.userEventTriggered(ctx, evt);
+        }
+
+
+    }
 //    /**
 //     * ChannelInboundHandlerAdapter
 //     * @param ctx
