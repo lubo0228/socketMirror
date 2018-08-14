@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TestJavaSeriaze {
+public class TestJavaSerialize {
     public static void main(String[] args) throws Exception {
         byte[] bytes = toBytes();
         toPlayer(bytes);
