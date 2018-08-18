@@ -1,7 +1,6 @@
 package com.test.netty;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
@@ -29,7 +28,7 @@ public class NettyClient {
                             socketChannel.pipeline().addLast(new ClientHandler());
                         }
                     });
-            ChannelFuture future = bootstrap.connect("127.0.0.1", 10010).sync();
+            ChannelFuture future = bootstrap.connect("127.0.0.1", 10011).sync();
 //            future.channel().writeAndFlush(Unpooled.copiedBuffer("我是客户端的信息".getBytes()));
             future.channel().writeAndFlush("我是客户端的信息");
             future.channel().closeFuture().sync();

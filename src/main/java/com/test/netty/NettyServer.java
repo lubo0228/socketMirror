@@ -35,7 +35,7 @@ public class NettyServer {
             ServerBootstrap bootstrap = new ServerBootstrap(); //辅助工具类，用于服务器通道的一系列配置
             bootstrap.group(bossGroup, workerGroup) //绑定两个线程组
                     .channel(NioServerSocketChannel.class) //指定NIO的模式
-                    .childHandler(new ChannelInitializer<SocketChannel>() { //配置具体的数据处理方式
+                    .handler(new ChannelInitializer<SocketChannel>() { //配置具体的数据处理方式
                         @Override
                         protected void initChannel(SocketChannel socketChannel) {
                             socketChannel.pipeline().addLast(new IdleStateHandler(5,5,10));
@@ -69,6 +69,6 @@ public class NettyServer {
     }
 
     public static void main(String[] args) {
-        new NettyServer(10010).run();
+        new NettyServer(10011).run();
     }
 }
